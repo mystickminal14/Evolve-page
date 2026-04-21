@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Pathways — LBEF College</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+</head>
+<body>
+
+  <!-- ── CURSOR ── -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">
+      <img src="assets/company_logo.png" alt="LBEF Logo" class="nav-logo-img" id="navLogoImg"
+           onerror="this.style.display='none'; document.getElementById('navLogoBadge').style.display='inline-block';" />
+      <span class="logo-badge" id="navLogoBadge" style="display:none;">LBEF</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#testimonials">Stories</a></li>
+      <li><a href="#apply" class="nav-cta">Apply Free</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── MOBILE MENU ── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about" class="mob-link">About</a></li>
+      <li><a href="#curriculum" class="mob-link">Curriculum</a></li>
+      <li><a href="#testimonials" class="mob-link">Stories</a></li>
+      <li><a href="#apply" class="mob-link">Apply Free</a></li>
+    </ul>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-two-col">
+        <!-- LEFT: text content -->
+        <div class="hero-left">
+          <div class="hero-eyebrow" id="heroEyebrow">
+            <span>Lord Buddha Education Foundation</span>
+          </div>
+          <h1 class="hero-headline" id="heroHeadline">
+            <span class="line-wrap"><span class="line">Navigate Your</span></span>
+            <span class="line-wrap"><span class="line italic-serif">Future</span></span>
+            <span class="line-wrap"><span class="line">in Technology</span></span>
+          </h1>
+          <p class="hero-sub" id="heroSub">
+            A free, week-long immersive program for Grade 12 graduates — gain clarity, hands-on skills, and expert guidance across Programming, AI, Cybersecurity, Web & Mobile Development.
+          </p>
+          <div class="hero-actions" id="heroActions">
+            <a href="#apply" class="btn-primary">Apply Now — It's Free</a>
+            <a href="#curriculum" class="btn-ghost">Explore Program ↓</a>
+          </div>
+          <div class="hero-stats" id="heroStats">
+            <div class="stat">
+              <span class="stat-num">6</span>
+              <span class="stat-label">Intensive Days</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-num">8+</span>
+              <span class="stat-label">IT Domains</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-num">₹0</span>
+              <span class="stat-label">Cost to You</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: hero image -->
+        <div class="hero-right" id="heroRight">
+          <div class="hero-img-frame">
+            <div class="hero-img-deco deco-ring"></div>
+            <div class="hero-img-deco deco-dots"></div>
+            <img
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80"
+              alt="Students learning technology"
+              class="hero-img"
+              id="heroImg"
+            />
+            <div class="hero-img-badge">
+              <span class="badge-icon">🎓</span>
+              <div>
+                <strong>Free Program</strong>
+                <span>Certificate Awarded</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>Programming Basics</span><span class="sep">✦</span>
+      <span>AI Applications</span><span class="sep">✦</span>
+      <span>Cybersecurity</span><span class="sep">✦</span>
+      <span>Web Development</span><span class="sep">✦</span>
+      <span>Mobile Apps</span><span class="sep">✦</span>
+      <span>Cloud Engineering</span><span class="sep">✦</span>
+      <span>Academic Writing</span><span class="sep">✦</span>
+      <span>Career Planning</span><span class="sep">✦</span>
+      <span>Programming Basics</span><span class="sep">✦</span>
+      <span>AI Applications</span><span class="sep">✦</span>
+      <span>Cybersecurity</span><span class="sep">✦</span>
+      <span>Web Development</span><span class="sep">✦</span>
+      <span>Mobile Apps</span><span class="sep">✦</span>
+      <span>Cloud Engineering</span><span class="sep">✦</span>
+      <span>Academic Writing</span><span class="sep">✦</span>
+      <span>Career Planning</span><span class="sep">✦</span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ── -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-left reveal-left">
+          <div class="section-label">About the Program</div>
+          <h2 class="section-title">
+            Shape Your Career,<br /><em>Explore Your Potential</em>
+          </h2>
+        </div>
+        <div class="about-right reveal-right">
+          <p class="about-body">
+            Career Pathways is conceived and conducted by <strong>Lord Buddha Education Foundation (LBEF)</strong>, Nepal's first IT college, bringing decades of expertise and industry-aligned guidance to your learning journey.
+          </p>
+          <p class="about-body">
+            Designed specifically for result-awaiting Grade 12 graduates, this program offers structured exposure to technology careers, practical coding skills, and professional development — all at zero cost.
+          </p>
+          <div class="about-highlights">
+            <div class="highlight-item reveal-up">
+              <div class="hi-icon">◈</div>
+              <div>
+                <strong>Structured Roadmap</strong>
+                <p>Each day carefully crafted to cover key technology domains.</p>
+              </div>
+            </div>
+            <div class="highlight-item reveal-up">
+              <div class="hi-icon">◈</div>
+              <div>
+                <strong>Expert Guidance</strong>
+                <p>Learn from educators and IT professionals with real-world experience.</p>
+              </div>
+            </div>
+            <div class="highlight-item reveal-up">
+              <div class="hi-icon">◈</div>
+              <div>
+                <strong>Certificate Awarded</strong>
+                <p>Earn a certificate for 80%+ attendance — a credential that counts.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CURRICULUM ── -->
+  <section class="curriculum section" id="curriculum">
+    <div class="container">
+      <div class="curriculum-header">
+        <div class="section-label reveal-up">Course Outline</div>
+        <h2 class="section-title reveal-up">Six Days. <em>Endless Possibilities.</em></h2>
+        <p class="section-sub reveal-up">A meticulously designed week that takes you from career clarity to hands-on technology skills.</p>
+      </div>
+      <div class="days-list">
+
+        <div class="day-card reveal-up" data-day="01">
+          <div class="day-number">Day 01</div>
+          <div class="day-content">
+            <div class="day-sessions">
+              <div class="day-session">
+                <span class="session-tag">Session I · 1 Hour</span>
+                <h3>Pursuing Meaningful Careers in IT</h3>
+                <p class="facilitator">Mr. Rajan Raj Pant — Head of Admissions, LBEF College</p>
+              </div>
+              <div class="day-session">
+                <span class="session-tag">Session II · 3 Hours</span>
+                <h3>Programming Basics for AI Applications</h3>
+                <p class="facilitator">Faculty Lecturer, LBEF College</p>
+              </div>
+            </div>
+          </div>
+          <div class="day-pill">Career + Code</div>
+        </div>
+
+        <div class="day-card reveal-up" data-day="02">
+          <div class="day-number">Day 02</div>
+          <div class="day-content">
+            <div class="day-sessions">
+              <div class="day-session">
+                <span class="session-tag">3 Hours</span>
+                <h3>Programming Basics for AI Applications</h3>
+                <p class="facilitator">Faculty Lecturer, LBEF College</p>
+              </div>
+            </div>
+          </div>
+          <div class="day-pill">AI + Code</div>
+        </div>
+
+        <div class="day-card reveal-up" data-day="03">
+          <div class="day-number">Day 03</div>
+          <div class="day-content">
+            <div class="day-sessions">
+              <div class="day-session">
+                <span class="session-tag">3 Hours</span>
+                <h3>Fundamentals of Cybersecurity</h3>
+                <p class="facilitator">Mr. Manish Deuja — Faculty Lecturer, LBEF College</p>
+              </div>
+            </div>
+          </div>
+          <div class="day-pill">Security</div>
+        </div>
+
+        <div class="day-card reveal-up" data-day="04">
+          <div class="day-number">Day 04</div>
+          <div class="day-content">
+            <div class="day-sessions">
+              <div class="day-session">
+                <span class="session-tag">3 Hours</span>
+                <h3>Web Development</h3>
+                <p class="facilitator">Mr. Bikul Raj Koirala — Deputy Program Coordinator, LBEF College</p>
+              </div>
+            </div>
+          </div>
+          <div class="day-pill">Web</div>
+        </div>
+
+        <div class="day-card reveal-up" data-day="05">
+          <div class="day-number">Day 05</div>
+          <div class="day-content">
+            <div class="day-sessions">
+              <div class="day-session">
+                <span class="session-tag">3 Hours</span>
+                <h3>Mobile App Development</h3>
+                <p class="facilitator">Mr. Shambhu Gautam — Faculty Lecturer, LBEF College</p>
+              </div>
+            </div>
+          </div>
+          <div class="day-pill">Mobile</div>
+        </div>
+
+        <div class="day-card reveal-up" data-day="06">
+          <div class="day-number">Day 06</div>
+          <div class="day-content">
+            <div class="day-sessions">
+              <div class="day-session">
+                <span class="session-tag">Session I · 3 Hours</span>
+                <h3>Cloud Engineering Basics</h3>
+                <p class="facilitator">Mr. Shree Paudel — Faculty Lecturer, LBEF College</p>
+              </div>
+              <div class="day-session">
+                <span class="session-tag">Session II · 1 Hour</span>
+                <h3>Basics of Academic Writing</h3>
+                <p class="facilitator">Dr. R.N. Thakur — Dean of Academics, LBEF College</p>
+              </div>
+            </div>
+          </div>
+          <div class="day-pill">Cloud + Writing</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TAKEAWAYS ── -->
+  <section class="takeaways section">
+    <div class="container">
+      <div class="takeaways-inner">
+        <div class="takeaways-left reveal-left">
+          <div class="section-label">Key Takeaways</div>
+          <h2 class="section-title">What You'll<br /><em>Walk Away With</em></h2>
+        </div>
+        <div class="takeaways-right">
+          <ul class="takeaway-list">
+            <li class="reveal-up"><span class="tnum">01</span> Clear understanding of IT careers and higher study options</li>
+            <li class="reveal-up"><span class="tnum">02</span> Practical skills across programming, AI, web, and mobile development</li>
+            <li class="reveal-up"><span class="tnum">03</span> Cybersecurity and cloud computing knowledge</li>
+            <li class="reveal-up"><span class="tnum">04</span> Improved academic writing and professional readiness</li>
+            <li class="reveal-up"><span class="tnum">05</span> Certificate of Participation for 80%+ attendance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testimonials section" id="testimonials">
+    <div class="container">
+      <div class="section-label reveal-up">Student Stories</div>
+      <h2 class="section-title reveal-up">Voices From <em>Past Participants</em></h2>
+      <div class="testi-grid">
+
+        <div class="testi-card reveal-up">
+          <div class="testi-quote">"</div>
+          <p>I am grateful to Career Pathway for guiding me toward one of the best decisions in my academic journey—joining LBEF College. The counseling process was clear, supportive, and tailored to my goals. The ice-breaking sessions with indoor games made it an experience I won't forget.</p>
+          <div class="testi-author">
+            <div class="author-avatar">MP</div>
+            <div>
+              <strong>Miraj Pant</strong>
+              <span>BSc IT – Artificial Intelligence</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal-up">
+          <div class="testi-quote">"</div>
+          <p>The hands-on learning experience was the best part. Through projects, coding tasks, presentations, and group activities, I gained practical knowledge and real confidence. The career guidance sessions were especially helpful for CV writing, interview prep, and career planning.</p>
+          <div class="testi-author">
+            <div class="author-avatar">MT</div>
+            <div>
+              <strong>Monishka Tuladhar</strong>
+              <span>BSc IT – Core</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal-up">
+          <div class="testi-quote">"</div>
+          <p>The experience has been truly rewarding and motivating. Faculty members were always supportive and approachable, encouraging us to explore new ideas. The Nagarkot session stood out as the most impactful — it gave me clear direction and practical guidance for my career path.</p>
+          <div class="testi-author">
+            <div class="author-avatar">JS</div>
+            <div>
+              <strong>Jeeya Sah</strong>
+              <span>BSc IT – Artificial Intelligence</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LOCATION ── -->
+  <section class="location section">
+    <div class="container">
+      <div class="location-card reveal-up">
+        <div class="location-left">
+          <div class="section-label">Location & Schedule</div>
+          <h2>Where & When</h2>
+          <div class="loc-detail">
+            <div class="loc-icon">📍</div>
+            <div>
+              <strong>LBEF Premises, Maitidevi</strong>
+              <p>Kathmandu, Nepal</p>
+            </div>
+          </div>
+          <div class="loc-detail">
+            <div class="loc-icon">🕐</div>
+            <div>
+              <strong>Sessions start at 11:00 AM</strong>
+              <p>Exact dates communicated post-enrollment</p>
+            </div>
+          </div>
+          <div class="loc-detail">
+            <div class="loc-icon">📜</div>
+            <div>
+              <strong>Certificate Awarded</strong>
+              <p>For participants with 80%+ attendance</p>
+            </div>
+          </div>
+        </div>
+        <div class="location-right">
+          <div class="map-placeholder">
+            <div class="map-pin-anim">
+              <div class="map-pin">📍</div>
+              <div class="map-ripple r1"></div>
+              <div class="map-ripple r2"></div>
+              <div class="map-ripple r3"></div>
+            </div>
+            <p>LBEF Maitidevi, Kathmandu</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── APPLY ── -->
+  <section class="apply section" id="apply">
+    <div class="apply-bg">
+      <div class="apply-orb"></div>
+    </div>
+    <div class="container">
+      <div class="apply-inner">
+        <div class="section-label reveal-up">Free Registration</div>
+        <h2 class="apply-title reveal-up">Your Journey Into<br /><em>Technology Starts Here</em></h2>
+        <p class="apply-sub reveal-up">Participation is completely free. Fill out the form to secure your spot. Ensure 80%+ attendance to earn your Certificate of Participation.</p>
+        <div class="apply-checklist reveal-up">
+          <span>✓ Free-of-Cost</span>
+          <span>✓ Expert-Led Sessions</span>
+          <span>✓ Hands-On Learning</span>
+          <span>✓ Certificate Awarded</span>
+        </div>
+        <a href="https://forms.gle/Nn5RAsdSVDKimAab6" target="_blank" rel="noopener" class="btn-apply reveal-up">
+          Apply Now — Secure Your Spot
+          <span class="btn-arrow">→</span>
+        </a>
+        <p class="apply-note reveal-up">No fees. No barriers. Just learning.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-badge">LBEF</span>
+          <span class="footer-tagline">Nepal's First IT College</span>
+        </div>
+        <p class="footer-copy">© 2025 Lord Buddha Education Foundation. All rights reserved.</p>
+        <p class="footer-address">Maitidevi, Kathmandu, Nepal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
