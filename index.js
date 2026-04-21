@@ -128,11 +128,98 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     5. SCROLL REVEAL — Generic Classes
+     5. BUTTERFLIES — staggered fade-in
+  ════════════════════════════════════════ */
+
+  // Hero butterflies — animate in after hero entrance
+  const heroBflies = document.querySelectorAll(
+    '.butterfly-h1, .butterfly-h2, .butterfly-h3, .butterfly-h4, .butterfly-h5'
+  );
+  gsap.to(heroBflies, {
+    opacity: 0.82,
+    duration: 1.2,
+    ease: 'power2.out',
+    stagger: 0.3,
+    delay: 1.4,
+  });
+
+  // Butterfly parallax on scroll — hero
+  gsap.to('.butterfly-h1', {
+    y: -80,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2 },
+  });
+  gsap.to('.butterfly-h2', {
+    y: -50,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 },
+  });
+  gsap.to('.butterfly-h3', {
+    y: -100,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2.5 },
+  });
+  gsap.to('.butterfly-h4', {
+    y: -60,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.8 },
+  });
+  gsap.to('.butterfly-h5', {
+    y: -40,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
+  });
+
+  // Scroll-reveal butterflies for other sections
+  const scrollBflies = [
+    { sel: '.butterfly-a1',  trigger: '.about' },
+    { sel: '.butterfly-a2',  trigger: '.about' },
+    { sel: '.butterfly-c1',  trigger: '.curriculum' },
+    { sel: '.butterfly-c2',  trigger: '.curriculum' },
+    { sel: '.butterfly-t1',  trigger: '.takeaways' },
+    { sel: '.butterfly-ts1', trigger: '.testimonials' },
+    { sel: '.butterfly-ts2', trigger: '.testimonials' },
+    { sel: '.butterfly-ap1', trigger: '.apply' },
+    { sel: '.butterfly-ap2', trigger: '.apply' },
+  ];
+
+  scrollBflies.forEach(({ sel, trigger }) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    gsap.fromTo(el,
+      { opacity: 0, scale: 0.5, rotation: -20 },
+      {
+        opacity: 0.82,
+        scale: 1,
+        rotation: 0,
+        duration: 1.4,
+        ease: 'back.out(1.2)',
+        scrollTrigger: {
+          trigger: document.querySelector(trigger),
+          start: 'top 75%',
+          once: true,
+        }
+      }
+    );
+  });
+
+  // Butterfly mouse-drift — hero only (subtle follow)
+  document.addEventListener('mousemove', (e) => {
+    const xRatio = (e.clientX / window.innerWidth - 0.5);
+    const yRatio = (e.clientY / window.innerHeight - 0.5);
+    heroBflies.forEach((b, i) => {
+      const depth = (i + 1) * 6;
+      gsap.to(b, {
+        x: xRatio * depth,
+        y: yRatio * depth,
+        duration: 1.8,
+        ease: 'power1.out',
+      });
+    });
+  });
+
+
+  /* ═══════════════════════════════════════
+     6. SCROLL REVEAL — Generic Classes
   ════════════════════════════════════════ */
 
   // .reveal-up
-  gsap.utils.toArray('.reveal-up').forEach((el, i) => {
+  gsap.utils.toArray('.reveal-up').forEach((el) => {
     gsap.fromTo(el,
       { y: 50, opacity: 0 },
       {
@@ -177,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     6. DAY CARDS — staggered reveal
+     7. DAY CARDS — staggered reveal
   ════════════════════════════════════════ */
   gsap.fromTo('.day-card',
     { y: 60, opacity: 0 },
@@ -196,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     7. TESTIMONIAL CARDS — staggered
+     8. TESTIMONIAL CARDS — staggered
   ════════════════════════════════════════ */
   gsap.fromTo('.testi-card',
     { y: 80, opacity: 0, scale: 0.96 },
@@ -215,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     8. STAT NUMBER COUNT-UP
+     9. STAT NUMBER COUNT-UP
   ════════════════════════════════════════ */
   const statTargets = [
     { el: document.querySelectorAll('.stat-num')[0], end: 6,  suffix: '' },
@@ -244,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     9. APPLY SECTION — big entrance
+     10. APPLY SECTION — big entrance
   ════════════════════════════════════════ */
   gsap.fromTo('.apply-orb',
     { scale: 0.5, opacity: 0 },
@@ -267,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     10. SMOOTH SCROLL for anchor links
+     11. SMOOTH SCROLL for anchor links
   ════════════════════════════════════════ */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
@@ -284,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     11. LOCATION CARD — parallax tilt
+     12. LOCATION CARD — parallax tilt
   ════════════════════════════════════════ */
   const locationCard = document.querySelector('.location-card');
   if (locationCard) {
@@ -313,8 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     12. SECTION HORIZONTAL LINE REVEAL
-        (decorative underline on section titles)
+     13. SECTION HORIZONTAL LINE REVEAL
   ════════════════════════════════════════ */
   gsap.utils.toArray('.section-title').forEach(title => {
     gsap.fromTo(title,
@@ -334,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     13. PAGE LOAD — body fade in
+     14. PAGE LOAD — body fade in
   ════════════════════════════════════════ */
   gsap.fromTo('body',
     { opacity: 0 },
@@ -343,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     14. MARQUEE pause on hover
+     15. MARQUEE pause on hover
   ════════════════════════════════════════ */
   const marqueeTrack = document.querySelector('.marquee-track');
   if (marqueeTrack) {
@@ -358,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     15. FOOTER fade-up
+     16. FOOTER fade-up
   ════════════════════════════════════════ */
   gsap.fromTo('.footer',
     { opacity: 0, y: 20 },
