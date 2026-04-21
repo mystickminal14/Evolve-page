@@ -11,6 +11,110 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+  <style>
+    /* ── TESTIMONIAL DIALOG ── */
+    .testi-dialog-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(13, 26, 46, 0.72);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+      padding: 20px;
+    }
+    .testi-dialog-overlay.open {
+      opacity: 1; pointer-events: all;
+    }
+    .testi-dialog {
+      background: var(--cream);
+      border: 1px solid var(--border-warm);
+      border-radius: 16px;
+      padding: 52px 56px;
+      max-width: 680px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      position: relative;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 32px 80px rgba(3,92,172,0.18), 0 8px 24px rgba(3,92,172,0.08);
+    }
+    .testi-dialog-overlay.open .testi-dialog {
+      transform: translateY(0) scale(1);
+    }
+    .testi-dialog-close {
+      position: absolute; top: 20px; right: 22px;
+      width: 36px; height: 36px;
+      background: var(--ivory-warm); border: 1px solid var(--border);
+      border-radius: 50%; cursor: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--muted);
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .testi-dialog-close:hover {
+      background: var(--blue); color: #fff; transform: rotate(90deg);
+    }
+    .testi-dialog-label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+    }
+    .testi-dialog-quote-mark {
+      font-family: var(--font-serif); font-size: 96px; font-weight: 700;
+      color: rgba(3,92,172,0.08); line-height: 0.55; margin-bottom: 24px;
+      display: block;
+    }
+    .testi-dialog-body {
+      font-size: 16px; line-height: 1.85; color: var(--muted);
+      margin-bottom: 36px;
+    }
+    .testi-dialog-body p { margin-bottom: 16px; }
+    .testi-dialog-body p:last-child { margin-bottom: 0; }
+    .testi-dialog-author {
+      display: flex; align-items: center; gap: 18px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .testi-dialog-avatar-wrap {
+      width: 60px; height: 60px; flex-shrink: 0;
+      border-radius: 50%; overflow: hidden;
+      border: 2px solid rgba(3,92,172,0.18);
+      box-shadow: 0 2px 12px rgba(3,92,172,0.12);
+    }
+    .testi-dialog-avatar-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+    }
+    .testi-dialog-avatar-fallback {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--blue), #4a9fd4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: #fff;
+    }
+    .testi-dialog-name {
+      font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 3px;
+    }
+    .testi-dialog-role { font-size: 13px; color: var(--muted); }
+
+    /* Card cursor pointer */
+    .testi-card { cursor: none; }
+    .testi-card .read-more-hint {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.25s, transform 0.25s;
+      display: inline-block; margin-top: -10px; margin-bottom: 20px;
+    }
+    .testi-card:hover .read-more-hint { opacity: 1; transform: translateY(0); }
+
+    /* scrollbar styling for dialog */
+    .testi-dialog::-webkit-scrollbar { width: 4px; }
+    .testi-dialog::-webkit-scrollbar-track { background: transparent; }
+    .testi-dialog::-webkit-scrollbar-thumb { background: var(--border-warm); border-radius: 2px; }
+
+    @media (max-width: 640px) {
+      .testi-dialog { padding: 36px 28px; }
+      .testi-dialog-quote-mark { font-size: 72px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -54,7 +158,6 @@
       <div class="hero-grid"></div>
     </div>
 
-    <!-- BUTTERFLIES IN HERO -->
     <img src="assets/butterfiles.webp" class="butterfly butterfly-h1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-h2" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-h3" alt="" aria-hidden="true" />
@@ -63,7 +166,6 @@
 
     <div class="hero-inner">
       <div class="hero-two-col">
-        <!-- LEFT: text content -->
         <div class="hero-left">
           <div class="hero-eyebrow" id="heroEyebrow">
             <span>Lord Buddha Education Foundation</span>
@@ -98,7 +200,6 @@
           </div>
         </div>
 
-        <!-- RIGHT: hero image -->
         <div class="hero-right" id="heroRight">
           <div class="hero-img-frame">
             <div class="hero-img-deco deco-ring"></div>
@@ -150,7 +251,6 @@
 
   <!-- ── ABOUT ── -->
   <section class="about section" id="about">
-    <!-- BUTTERFLIES IN ABOUT -->
     <img src="assets/butterfiles.webp" class="butterfly butterfly-a1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-a2" alt="" aria-hidden="true" />
     <div class="container">
@@ -198,7 +298,6 @@
 
   <!-- ── CURRICULUM ── -->
   <section class="curriculum section" id="curriculum">
-    <!-- BUTTERFLIES IN CURRICULUM -->
     <img src="assets/butterfiles.webp" class="butterfly butterfly-c1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-c2" alt="" aria-hidden="true" />
     <div class="container">
@@ -309,7 +408,6 @@
 
   <!-- ── TAKEAWAYS ── -->
   <section class="takeaways section">
-    <!-- BUTTERFLIES IN TAKEAWAYS -->
     <img src="assets/butterfiles.webp" class="butterfly butterfly-t1" alt="" aria-hidden="true" />
     <div class="container">
       <div class="takeaways-inner">
@@ -332,7 +430,6 @@
 
   <!-- ── TESTIMONIALS ── -->
   <section class="testimonials section" id="testimonials">
-    <!-- BUTTERFLIES IN TESTIMONIALS -->
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ts1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ts2" alt="" aria-hidden="true" />
     <div class="container">
@@ -340,9 +437,15 @@
       <h2 class="section-title reveal-up">Voices From <em>Past Participants</em></h2>
       <div class="testi-grid">
 
-        <div class="testi-card reveal-up">
+        <div class="testi-card reveal-up"
+             data-name="Miraj Pant"
+             data-role="BSc IT – Artificial Intelligence"
+             data-avatar="assets/boy.png"
+             data-initials="MP"
+             data-full="I am grateful to Career Pathway for guiding me toward one of the best decisions in my academic journey—joining LBEF College. Their counseling process was clear, supportive, and tailored to my goals, which made choosing the right institution much easier. The ice breaking sessions were more fun with various indoor games.||Thanks to their recommendation, I found LBEF to be an excellent environment for both personal and academic growth. The college offers quality education, experienced faculty, and a practical learning approach that truly prepares students for real-world challenges.||Career Pathway not only helped me select the right college but also supported me throughout the admission process, making everything smooth and stress-free. I highly recommend their services to anyone looking for proper guidance in higher education.||Thank you, Career Pathway, for helping shape my future.">
           <div class="testi-quote">"</div>
           <p>I am grateful to Career Pathway for guiding me toward one of the best decisions in my academic journey—joining LBEF College. The counseling process was clear, supportive, and tailored to my goals. The ice-breaking sessions with indoor games made it an experience I won't forget.</p>
+          <span class="read-more-hint">Read full story →</span>
           <div class="testi-author">
             <div class="author-avatar-wrap">
               <img src="assets/boy.png" alt="Miraj Pant" class="author-photo"
@@ -356,9 +459,15 @@
           </div>
         </div>
 
-        <div class="testi-card reveal-up">
+        <div class="testi-card reveal-up"
+             data-name="Monishka Tuladhar"
+             data-role="BSc IT – Core"
+             data-avatar="assets/monica.png"
+             data-initials="MT"
+             data-full="My experience at Lord Buddha Education Foundation (LBEF) has been highly valuable for my career growth and personal development. Joining LBEF helped me build both academic knowledge and practical skills needed for a successful future in the IT field.||During the training sessions, I learned important topics such as programming, web development, database management, communication, teamwork, and problem-solving. The trainers were supportive, experienced, and always ready to guide us. Their clear teaching methods encouraged us to learn and practice regularly.||One of the best parts of the program was the hands-on learning experience. Through projects, coding tasks, presentations, and group activities, I gained practical knowledge, confidence, and technical skills. I also learned time management, discipline, and teamwork.||The career pathway guidance sessions were especially helpful in preparing us for jobs, internships, CV writing, interview preparation, and career planning.||Overall, my experience at LBEF has been excellent. It has helped me grow academically, professionally, and personally, and I now feel confident and prepared for future opportunities.">
           <div class="testi-quote">"</div>
           <p>The hands-on learning experience was the best part. Through projects, coding tasks, presentations, and group activities, I gained practical knowledge and real confidence. The career guidance sessions were especially helpful for CV writing, interview prep, and career planning.</p>
+          <span class="read-more-hint">Read full story →</span>
           <div class="testi-author">
             <div class="author-avatar-wrap">
               <img src="assets/monica.png" alt="Monishka Tuladhar" class="author-photo"
@@ -372,9 +481,15 @@
           </div>
         </div>
 
-        <div class="testi-card reveal-up">
+        <div class="testi-card reveal-up"
+             data-name="Jeeya Sah"
+             data-role="BSc IT – Artificial Intelligence"
+             data-avatar="assets/jeeya.png"
+             data-initials="JS"
+             data-full="The experience has been truly rewarding and motivating throughout. The faculty members were always supportive and approachable, consistently encouraging us to explore new ideas and step out of our comfort zones. Their guidance and dedication created a positive and engaging learning environment where it was easy to ask questions, learn new skills, and build confidence.||Each day brought new opportunities to grow, not only academically but also personally. The continuous encouragement from our teachers helped me stay motivated and focused on improving myself, and I am sincerely grateful for the support, inspiration, and knowledge that have played an important role in shaping my overall development.||There were also various sessions organized during this period, each offering unique insights and learning experiences. Among them, the Nagarkot session stood out as the most impactful and meaningful. It was especially thoughtful and inspiring, providing clear direction and practical guidance for my career path.||The session helped me explore better career options, understand industry expectations, and align my skills with suitable professional opportunities. It enabled me to make more informed decisions about my future and strengthened my confidence in choosing the right career path.">
           <div class="testi-quote">"</div>
           <p>The experience has been truly rewarding and motivating. Faculty members were always supportive and approachable, encouraging us to explore new ideas. The Nagarkot session stood out as the most impactful — it gave me clear direction and practical guidance for my career path.</p>
+          <span class="read-more-hint">Read full story →</span>
           <div class="testi-author">
             <div class="author-avatar-wrap">
               <img src="assets/jeeya.png" alt="Jeeya Sah" class="author-photo"
@@ -391,6 +506,23 @@
       </div>
     </div>
   </section>
+
+  <!-- ── TESTIMONIAL DIALOG ── -->
+  <div class="testi-dialog-overlay" id="testiDialogOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+    <div class="testi-dialog" id="testiDialog">
+      <button class="testi-dialog-close" id="testiDialogClose" aria-label="Close">✕</button>
+      <div class="testi-dialog-label">Career Pathway Testimonial</div>
+      <span class="testi-dialog-quote-mark">"</span>
+      <div class="testi-dialog-body" id="testiDialogBody"></div>
+      <div class="testi-dialog-author">
+        <div class="testi-dialog-avatar-wrap" id="testiDialogAvatarWrap"></div>
+        <div>
+          <div class="testi-dialog-name" id="testiDialogName"></div>
+          <div class="testi-dialog-role" id="testiDialogRole"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── LOCATION ── -->
   <section class="location section">
@@ -422,14 +554,18 @@
           </div>
         </div>
         <div class="location-right">
-          <div class="map-placeholder">
-            <div class="map-pin-anim">
-              <div class="map-pin">📍</div>
-              <div class="map-ripple r1"></div>
-              <div class="map-ripple r2"></div>
-              <div class="map-ripple r3"></div>
-            </div>
-            <p>LBEF Maitidevi, Kathmandu</p>
+          <!-- EMBEDDED GOOGLE MAP -->
+          <div class="map-embed-wrap">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.2!2d85.3312!3d27.7100!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb191a5f9e7305%3A0x5b6d892cf3b9e72f!2sLord%20Buddha%20Education%20Foundation%20(LBEF)!5e0!3m2!1sen!2snp!4v1700000000000!5m2!1sen!2snp"
+              width="100%"
+              height="100%"
+              style="border:0; border-radius: 12px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="LBEF Location – Maitidevi, Kathmandu">
+            </iframe>
           </div>
         </div>
       </div>
@@ -438,7 +574,6 @@
 
   <!-- ── APPLY ── -->
   <section class="apply section" id="apply">
-    <!-- BUTTERFLIES IN APPLY -->
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ap1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ap2" alt="" aria-hidden="true" />
     <div class="apply-bg">
@@ -469,11 +604,11 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-            <a href="#" class="nav-logo">
-      <img src="assets/lbef_five.webp" alt="LBEF Logo" class="footer-logo-img" id="navLogoImg"
-           onerror="this.style.display='none'; document.getElementById('navLogoBadge').style.display='inline-block';" />
-      <span class="logo-badge" id="navLogoBadge" style="display:none;">LBEF</span>
-    </a>   </div>
+          <a href="#" class="nav-logo">
+            <img src="assets/lbef_five.webp" alt="LBEF Logo" class="footer-logo-img"
+                 onerror="this.style.display='none';" />
+          </a>
+        </div>
         <p class="footer-copy">© 2025 Lord Buddha Education Foundation. All rights reserved.</p>
         <p class="footer-address">Maitidevi, Kathmandu, Nepal</p>
       </div>
@@ -481,5 +616,83 @@
   </footer>
 
   <script src="index.js"></script>
+  <script>
+    /* ── TESTIMONIAL DIALOG LOGIC ── */
+    (function() {
+      const overlay   = document.getElementById('testiDialogOverlay');
+      const closeBtn  = document.getElementById('testiDialogClose');
+      const bodyEl    = document.getElementById('testiDialogBody');
+      const nameEl    = document.getElementById('testiDialogName');
+      const roleEl    = document.getElementById('testiDialogRole');
+      const avatarWrap = document.getElementById('testiDialogAvatarWrap');
+
+      function openDialog(card) {
+        const name     = card.dataset.name;
+        const role     = card.dataset.role;
+        const avatar   = card.dataset.avatar;
+        const initials = card.dataset.initials;
+        const full     = card.dataset.full;
+
+        // Build paragraphs from || delimiter
+        const paragraphs = full.split('||').map(p => p.trim()).filter(Boolean);
+        bodyEl.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+
+        nameEl.textContent = name;
+        roleEl.textContent = role;
+
+        // Avatar
+        avatarWrap.innerHTML = `
+          <img src="${avatar}" alt="${name}"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="testi-dialog-avatar-fallback" style="display:none;">${initials}</div>
+        `;
+
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDialog() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      // Attach click to each testi-card
+      document.querySelectorAll('.testi-card').forEach(card => {
+        card.addEventListener('click', () => openDialog(card));
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDialog(card); }
+        });
+      });
+
+      closeBtn.addEventListener('click', closeDialog);
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeDialog();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDialog();
+      });
+    })();
+  </script>
+
+  <style>
+    /* ── MAP EMBED ── */
+    .map-embed-wrap {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid var(--border-warm);
+      box-shadow: 0 4px 24px rgba(3,92,172,0.10);
+    }
+    .map-embed-wrap iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
 </body>
 </html>
