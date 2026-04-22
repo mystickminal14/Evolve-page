@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────
    CAREER PATHWAYS — LBEF  |  index.js
-   GSAP Animations + Interactions
+   GSAP Animations + Interactions + Testimonial Dialog
 ───────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.1, ease: 'power2.out' });
   });
 
-  // Lerp trail for smooth follow
   function animateTrail() {
     trailX += (mouseX - trailX) * 0.12;
     trailY += (mouseY - trailY) * 0.12;
@@ -32,8 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   animateTrail();
 
-  // Cursor scale on hover
-  const hoverTargets = document.querySelectorAll('a, button, .day-card, .testi-card');
+  const hoverTargets = document.querySelectorAll('a, button, .day-card, .testi-card, .curriculum-table tbody tr, .why-card, .highlight-glance-card, .overview-item');
   hoverTargets.forEach(el => {
     el.addEventListener('mouseenter', () => {
       gsap.to(cursor, { scale: 2.5, duration: 0.3, ease: 'back.out' });
@@ -75,13 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: 'power3.out', delay: 0.1 }
       );
-      // Hamburger → X
       gsap.to(hamburger.querySelectorAll('span')[0], { rotation: 45, y: 7,  duration: 0.3 });
-      gsap.to(hamburger.querySelectorAll('span')[1], { opacity: 0,        duration: 0.2 });
+      gsap.to(hamburger.querySelectorAll('span')[1], { opacity: 0,          duration: 0.2 });
       gsap.to(hamburger.querySelectorAll('span')[2], { rotation: -45, y: -7, duration: 0.3 });
     } else {
       gsap.to(hamburger.querySelectorAll('span')[0], { rotation: 0, y: 0,  duration: 0.3 });
-      gsap.to(hamburger.querySelectorAll('span')[1], { opacity: 1,        duration: 0.2 });
+      gsap.to(hamburger.querySelectorAll('span')[1], { opacity: 1,          duration: 0.2 });
       gsap.to(hamburger.querySelectorAll('span')[2], { rotation: 0, y: 0,  duration: 0.3 });
     }
   });
@@ -106,74 +103,44 @@ document.addEventListener('DOMContentLoaded', () => {
   heroTL
     .to('#heroEyebrow', { opacity: 1, y: 0, duration: 0.8, delay: 0.2 })
     .to('.hero-headline .line', {
-      y: 0,
-      duration: 1.1,
-      stagger: 0.12,
-      ease: 'power4.out',
+      y: 0, duration: 1.1, stagger: 0.12, ease: 'power4.out',
     }, '-=0.5')
-    .to('#heroSub', { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
+    .to('#heroSub',     { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
     .to('#heroActions', { opacity: 1, y: 0, duration: 0.7 }, '-=0.6')
-    .to('#heroStats', { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
-    .to('#heroRight', { opacity: 1, x: 0, duration: 1.0, ease: 'power3.out' }, '-=1.2');
+    .to('#heroStats',   { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
+    .to('#heroRight',   { opacity: 1, x: 0, duration: 1.0, ease: 'power3.out' }, '-=1.2');
 
-  // Floating orbs parallax
-  gsap.to('.orb-1', {
-    y: -60,
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 },
-  });
-  gsap.to('.orb-2', {
-    y: 40,
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 },
-  });
+  gsap.to('.orb-1', { y: -60, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 } });
+  gsap.to('.orb-2', { y: 40,  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 } });
 
 
   /* ═══════════════════════════════════════
-     5. BUTTERFLIES — staggered fade-in
+     5. BUTTERFLIES
   ════════════════════════════════════════ */
-
-  // Hero butterflies — animate in after hero entrance
   const heroBflies = document.querySelectorAll(
     '.butterfly-h1, .butterfly-h2, .butterfly-h3, .butterfly-h4, .butterfly-h5'
   );
-  gsap.to(heroBflies, {
-    opacity: 0.82,
-    duration: 1.2,
-    ease: 'power2.out',
-    stagger: 0.3,
-    delay: 1.4,
-  });
+  gsap.to(heroBflies, { opacity: 0.82, duration: 1.2, ease: 'power2.out', stagger: 0.3, delay: 1.4 });
 
-  // Butterfly parallax on scroll — hero
-  gsap.to('.butterfly-h1', {
-    y: -80,
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2 },
-  });
-  gsap.to('.butterfly-h2', {
-    y: -50,
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 },
-  });
-  gsap.to('.butterfly-h3', {
-    y: -100,
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2.5 },
-  });
-  gsap.to('.butterfly-h4', {
-    y: -60,
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.8 },
-  });
-  gsap.to('.butterfly-h5', {
-    y: -40,
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
-  });
+  gsap.to('.butterfly-h1', { y: -80,  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2 } });
+  gsap.to('.butterfly-h2', { y: -50,  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 } });
+  gsap.to('.butterfly-h3', { y: -100, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2.5 } });
+  gsap.to('.butterfly-h4', { y: -60,  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.8 } });
+  gsap.to('.butterfly-h5', { y: -40,  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 } });
 
-  // Scroll-reveal butterflies for other sections
   const scrollBflies = [
     { sel: '.butterfly-a1',  trigger: '.about' },
     { sel: '.butterfly-a2',  trigger: '.about' },
+    { sel: '.butterfly-w1',  trigger: '.why-join' },
+    { sel: '.butterfly-ws1', trigger: '.who-should' },
+    { sel: '.butterfly-ov1', trigger: '.overview' },
+    { sel: '.butterfly-ov2', trigger: '.overview' },
     { sel: '.butterfly-c1',  trigger: '.curriculum' },
     { sel: '.butterfly-c2',  trigger: '.curriculum' },
     { sel: '.butterfly-t1',  trigger: '.takeaways' },
     { sel: '.butterfly-ts1', trigger: '.testimonials' },
     { sel: '.butterfly-ts2', trigger: '.testimonials' },
+    { sel: '.butterfly-hl1', trigger: '.highlights' },
     { sel: '.butterfly-ap1', trigger: '.apply' },
     { sel: '.butterfly-ap2', trigger: '.apply' },
   ];
@@ -184,32 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.fromTo(el,
       { opacity: 0, scale: 0.5, rotation: -20 },
       {
-        opacity: 0.82,
-        scale: 1,
-        rotation: 0,
-        duration: 1.4,
-        ease: 'back.out(1.2)',
-        scrollTrigger: {
-          trigger: document.querySelector(trigger),
-          start: 'top 75%',
-          once: true,
-        }
+        opacity: 0.82, scale: 1, rotation: 0, duration: 1.4, ease: 'back.out(1.2)',
+        scrollTrigger: { trigger: document.querySelector(trigger), start: 'top 75%', once: true }
       }
     );
   });
 
-  // Butterfly mouse-drift — hero only (subtle follow)
   document.addEventListener('mousemove', (e) => {
     const xRatio = (e.clientX / window.innerWidth - 0.5);
     const yRatio = (e.clientY / window.innerHeight - 0.5);
     heroBflies.forEach((b, i) => {
       const depth = (i + 1) * 6;
-      gsap.to(b, {
-        x: xRatio * depth,
-        y: yRatio * depth,
-        duration: 1.8,
-        ease: 'power1.out',
-      });
+      gsap.to(b, { x: xRatio * depth, y: yRatio * depth, duration: 1.8, ease: 'power1.out' });
     });
   });
 
@@ -217,92 +170,94 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ═══════════════════════════════════════
      6. SCROLL REVEAL — Generic Classes
   ════════════════════════════════════════ */
-
-  // .reveal-up
   gsap.utils.toArray('.reveal-up').forEach((el) => {
     gsap.fromTo(el,
       { y: 50, opacity: 0 },
       {
-        y: 0, opacity: 1,
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          once: true,
-        },
+        y: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
         delay: (el.dataset.delay || 0),
       }
     );
   });
 
-  // .reveal-left
   gsap.utils.toArray('.reveal-left').forEach(el => {
     gsap.fromTo(el,
       { x: -60, opacity: 0 },
-      {
-        x: 0, opacity: 1,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      }
+      { x: 0, opacity: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
     );
   });
 
-  // .reveal-right
   gsap.utils.toArray('.reveal-right').forEach(el => {
     gsap.fromTo(el,
       { x: 60, opacity: 0 },
-      {
-        x: 0, opacity: 1,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      }
+      { x: 0, opacity: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
     );
   });
 
 
   /* ═══════════════════════════════════════
-     7. DAY CARDS — staggered reveal
+     7. WHY JOIN CARDS — staggered reveal
   ════════════════════════════════════════ */
-  gsap.fromTo('.day-card',
-    { y: 60, opacity: 0 },
+  gsap.fromTo('.why-card',
+    { y: 60, opacity: 0, scale: 0.96 },
     {
-      y: 0, opacity: 1,
-      duration: 0.7,
-      ease: 'power3.out',
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: '.days-list',
-        start: 'top 80%',
-        once: true,
-      }
+      y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.1,
+      scrollTrigger: { trigger: '.why-grid', start: 'top 80%', once: true }
     }
   );
 
 
   /* ═══════════════════════════════════════
-     8. TESTIMONIAL CARDS — staggered
+     8. OVERVIEW ITEMS — staggered reveal
+  ════════════════════════════════════════ */
+  gsap.fromTo('.overview-item',
+    { y: 40, opacity: 0 },
+    {
+      y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.08,
+      scrollTrigger: { trigger: '.overview-grid', start: 'top 80%', once: true }
+    }
+  );
+
+
+  /* ═══════════════════════════════════════
+     9. HIGHLIGHTS CARDS — staggered reveal
+  ════════════════════════════════════════ */
+  gsap.fromTo('.highlight-glance-card',
+    { y: 50, opacity: 0, scale: 0.97 },
+    {
+      y: 0, opacity: 1, scale: 1, duration: 0.75, ease: 'power3.out', stagger: 0.12,
+      scrollTrigger: { trigger: '.highlights-grid', start: 'top 80%', once: true }
+    }
+  );
+
+
+  /* ═══════════════════════════════════════
+     10. CURRICULUM TABLE — row reveal
+  ════════════════════════════════════════ */
+  gsap.fromTo('.curriculum-table tbody tr',
+    { x: -20, opacity: 0 },
+    {
+      x: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.06,
+      scrollTrigger: { trigger: '.curriculum-table-wrap', start: 'top 80%', once: true }
+    }
+  );
+
+
+  /* ═══════════════════════════════════════
+     11. TESTIMONIAL CARDS — staggered
   ════════════════════════════════════════ */
   gsap.fromTo('.testi-card',
     { y: 80, opacity: 0, scale: 0.96 },
     {
-      y: 0, opacity: 1, scale: 1,
-      duration: 0.85,
-      ease: 'power3.out',
-      stagger: 0.15,
-      scrollTrigger: {
-        trigger: '.testi-grid',
-        start: 'top 80%',
-        once: true,
-      }
+      y: 0, opacity: 1, scale: 1, duration: 0.85, ease: 'power3.out', stagger: 0.15,
+      scrollTrigger: { trigger: '.testi-grid', start: 'top 80%', once: true }
     }
   );
 
 
   /* ═══════════════════════════════════════
-     9. STAT NUMBER COUNT-UP
+     12. STAT NUMBER COUNT-UP
   ════════════════════════════════════════ */
   const statTargets = [
     { el: document.querySelectorAll('.stat-num')[0], end: 6,  suffix: '' },
@@ -313,17 +268,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!el) return;
     const obj = { val: 0 };
     ScrollTrigger.create({
-      trigger: el,
-      start: 'top 85%',
-      once: true,
+      trigger: el, start: 'top 85%', once: true,
       onEnter: () => {
         gsap.to(obj, {
-          val: end,
-          duration: 1.5,
-          ease: 'power2.out',
-          onUpdate: () => {
-            el.textContent = Math.round(obj.val) + suffix;
-          }
+          val: end, duration: 1.5, ease: 'power2.out',
+          onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
         });
       }
     });
@@ -331,47 +280,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ═══════════════════════════════════════
-     10. APPLY SECTION — big entrance
+     13. APPLY SECTION
   ════════════════════════════════════════ */
   gsap.fromTo('.apply-orb',
     { scale: 0.5, opacity: 0 },
-    {
-      scale: 1, opacity: 1,
-      duration: 1.5,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '#apply', start: 'top 80%', once: true }
-    }
+    { scale: 1, opacity: 1, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#apply', start: 'top 80%', once: true } }
   );
 
-  // Pulsing glow on apply button
   gsap.to('.btn-apply', {
-    boxShadow: '0 16px 70px rgba(192, 57, 43, 0.7)',
-    duration: 1.5,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut',
+    boxShadow: '0 16px 70px rgba(3, 92, 172, 0.7)',
+    duration: 1.5, repeat: -1, yoyo: true, ease: 'sine.inOut',
   });
 
 
   /* ═══════════════════════════════════════
-     11. SMOOTH SCROLL for anchor links
+     14. SMOOTH SCROLL
   ════════════════════════════════════════ */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const target = document.querySelector(link.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      gsap.to(window, {
-        duration: 1.1,
-        scrollTo: { y: target, offsetY: 70 },
-        ease: 'power3.inOut',
-      });
+      gsap.to(window, { duration: 1.1, scrollTo: { y: target, offsetY: 70 }, ease: 'power3.inOut' });
     });
   });
 
 
   /* ═══════════════════════════════════════
-     12. LOCATION CARD — parallax tilt
+     15. LOCATION CARD — parallax tilt
   ════════════════════════════════════════ */
   const locationCard = document.querySelector('.location-card');
   if (locationCard) {
@@ -381,83 +317,105 @@ document.addEventListener('DOMContentLoaded', () => {
       const cy = rect.top + rect.height / 2;
       const dx = (e.clientX - cx) / rect.width;
       const dy = (e.clientY - cy) / rect.height;
-      gsap.to(locationCard, {
-        rotationY: dx * 4,
-        rotationX: -dy * 4,
-        transformPerspective: 1000,
-        duration: 0.5,
-        ease: 'power2.out',
-      });
+      gsap.to(locationCard, { rotationY: dx * 4, rotationX: -dy * 4, transformPerspective: 1000, duration: 0.5, ease: 'power2.out' });
     });
     locationCard.addEventListener('mouseleave', () => {
-      gsap.to(locationCard, {
-        rotationY: 0, rotationX: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-      });
+      gsap.to(locationCard, { rotationY: 0, rotationX: 0, duration: 0.7, ease: 'power3.out' });
     });
   }
 
 
   /* ═══════════════════════════════════════
-     13. SECTION HORIZONTAL LINE REVEAL
+     16. PAGE LOAD
   ════════════════════════════════════════ */
-  gsap.utils.toArray('.section-title').forEach(title => {
-    gsap.fromTo(title,
-      { backgroundSize: '0% 2px' },
-      {
-        backgroundSize: '100% 2px',
-        scrollTrigger: {
-          trigger: title,
-          start: 'top 85%',
-          once: true,
-        },
-        duration: 0.8,
-        ease: 'power2.out',
-      }
-    );
-  });
+  gsap.fromTo('body', { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power2.out' });
 
 
   /* ═══════════════════════════════════════
-     14. PAGE LOAD — body fade in
-  ════════════════════════════════════════ */
-  gsap.fromTo('body',
-    { opacity: 0 },
-    { opacity: 1, duration: 0.6, ease: 'power2.out' }
-  );
-
-
-  /* ═══════════════════════════════════════
-     15. MARQUEE pause on hover
+     17. MARQUEE pause on hover
   ════════════════════════════════════════ */
   const marqueeTrack = document.querySelector('.marquee-track');
   if (marqueeTrack) {
-    marqueeTrack.addEventListener('mouseenter', () => {
-      gsap.to(marqueeTrack, { animationPlayState: 'paused' });
-      marqueeTrack.style.animationPlayState = 'paused';
-    });
-    marqueeTrack.addEventListener('mouseleave', () => {
-      marqueeTrack.style.animationPlayState = 'running';
-    });
+    marqueeTrack.addEventListener('mouseenter', () => { marqueeTrack.style.animationPlayState = 'paused'; });
+    marqueeTrack.addEventListener('mouseleave', () => { marqueeTrack.style.animationPlayState = 'running'; });
   }
 
 
   /* ═══════════════════════════════════════
-     16. FOOTER fade-up
+     18. FOOTER fade-up
   ════════════════════════════════════════ */
   gsap.fromTo('.footer',
     { opacity: 0, y: 20 },
-    {
-      opacity: 1, y: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.footer',
-        start: 'top 95%',
-        once: true,
-      }
-    }
+    { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: '.footer', start: 'top 95%', once: true } }
   );
+
+
+  /* ═══════════════════════════════════════
+     19. TESTIMONIAL DIALOG
+  ════════════════════════════════════════ */
+  const overlay    = document.getElementById('testiDialogOverlay');
+  const closeBtn   = document.getElementById('testiDialogClose');
+  const bodyEl     = document.getElementById('testiDialogBody');
+  const nameEl     = document.getElementById('testiDialogName');
+  const roleEl     = document.getElementById('testiDialogRole');
+  const avatarWrap = document.getElementById('testiDialogAvatarWrap');
+
+  function openDialog(card) {
+    const name     = card.dataset.name;
+    const role     = card.dataset.role;
+    const avatar   = card.dataset.avatar;
+    const initials = card.dataset.initials;
+    const full     = card.dataset.full;
+
+    const paragraphs = full.split('||').map(p => p.trim()).filter(Boolean);
+    bodyEl.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+
+    nameEl.textContent = name;
+    roleEl.textContent = role;
+
+    avatarWrap.innerHTML = `
+      <img src="${avatar}" alt="${name}"
+           style="width:100%;height:100%;object-fit:cover;object-position:center top;"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+      <div class="testi-dialog-avatar-fallback" style="display:none;">${initials}</div>
+    `;
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    gsap.fromTo('#testiDialog',
+      { y: 30, opacity: 0, scale: 0.96 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: 'power3.out' }
+    );
+  }
+
+  function closeDialog() {
+    gsap.to('#testiDialog', {
+      y: 16, opacity: 0, scale: 0.97, duration: 0.28, ease: 'power2.in',
+      onComplete: () => {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  document.querySelectorAll('.testi-card').forEach(card => {
+    card.addEventListener('click', () => openDialog(card));
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDialog(card); }
+    });
+  });
+
+  closeBtn.addEventListener('click', closeDialog);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeDialog();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeDialog();
+  });
 
 });

@@ -7,125 +7,20 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-
-  <style>
-    /* ── TESTIMONIAL DIALOG ── */
-    .testi-dialog-overlay {
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(13, 26, 46, 0.72);
-      backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.35s ease;
-      padding: 20px;
-    }
-    .testi-dialog-overlay.open {
-      opacity: 1; pointer-events: all;
-    }
-    .testi-dialog {
-      background: var(--cream);
-      border: 1px solid var(--border-warm);
-      border-radius: 16px;
-      padding: 52px 56px;
-      max-width: 680px; width: 100%;
-      max-height: 88vh; overflow-y: auto;
-      position: relative;
-      transform: translateY(24px) scale(0.97);
-      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 32px 80px rgba(3,92,172,0.18), 0 8px 24px rgba(3,92,172,0.08);
-    }
-    .testi-dialog-overlay.open .testi-dialog {
-      transform: translateY(0) scale(1);
-    }
-    .testi-dialog-close {
-      position: absolute; top: 20px; right: 22px;
-      width: 36px; height: 36px;
-      background: var(--ivory-warm); border: 1px solid var(--border);
-      border-radius: 50%; cursor: none;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; color: var(--muted);
-      transition: background 0.2s, color 0.2s, transform 0.2s;
-    }
-    .testi-dialog-close:hover {
-      background: var(--blue); color: #fff; transform: rotate(90deg);
-    }
-    .testi-dialog-label {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
-    }
-    .testi-dialog-quote-mark {
-      font-family: var(--font-serif); font-size: 96px; font-weight: 700;
-      color: rgba(3,92,172,0.08); line-height: 0.55; margin-bottom: 24px;
-      display: block;
-    }
-    .testi-dialog-body {
-      font-size: 16px; line-height: 1.85; color: var(--muted);
-      margin-bottom: 36px;
-    }
-    .testi-dialog-body p { margin-bottom: 16px; }
-    .testi-dialog-body p:last-child { margin-bottom: 0; }
-    .testi-dialog-author {
-      display: flex; align-items: center; gap: 18px;
-      padding-top: 28px;
-      border-top: 1px solid var(--border);
-    }
-    .testi-dialog-avatar-wrap {
-      width: 60px; height: 60px; flex-shrink: 0;
-      border-radius: 50%; overflow: hidden;
-      border: 2px solid rgba(3,92,172,0.18);
-      box-shadow: 0 2px 12px rgba(3,92,172,0.12);
-    }
-    .testi-dialog-avatar-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
-    }
-    .testi-dialog-avatar-fallback {
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, var(--blue), #4a9fd4);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 700; color: #fff;
-    }
-    .testi-dialog-name {
-      font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 3px;
-    }
-    .testi-dialog-role { font-size: 13px; color: var(--muted); }
-
-    /* Card cursor pointer */
-    .testi-card { cursor: none; }
-    .testi-card .read-more-hint {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--blue);
-      opacity: 0; transform: translateY(4px);
-      transition: opacity 0.25s, transform 0.25s;
-      display: inline-block; margin-top: -10px; margin-bottom: 20px;
-    }
-    .testi-card:hover .read-more-hint { opacity: 1; transform: translateY(0); }
-
-    /* scrollbar styling for dialog */
-    .testi-dialog::-webkit-scrollbar { width: 4px; }
-    .testi-dialog::-webkit-scrollbar-track { background: transparent; }
-    .testi-dialog::-webkit-scrollbar-thumb { background: var(--border-warm); border-radius: 2px; }
-
-    @media (max-width: 640px) {
-      .testi-dialog { padding: 36px 28px; }
-      .testi-dialog-quote-mark { font-size: 72px; }
-    }
-  </style>
 </head>
 <body>
 
-  <!-- ── CURSOR ── -->
+  <!-- CURSOR -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
 
-  <!-- ── NAV ── -->
+  <!-- NAV -->
   <nav class="nav" id="nav">
     <a href="#" class="nav-logo">
-      <img src="assets/company_logo.png" alt="LBEF Logo" class="nav-logo-img" id="navLogoImg"
+      <img src="assets/company_logo.png" alt="LBEF Logo" class="nav-logo-img"
            onerror="this.style.display='none'; document.getElementById('navLogoBadge').style.display='inline-block';" />
       <span class="logo-badge" id="navLogoBadge" style="display:none;">LBEF</span>
     </a>
@@ -133,31 +28,30 @@
       <li><a href="#about">About</a></li>
       <li><a href="#curriculum">Curriculum</a></li>
       <li><a href="#testimonials">Stories</a></li>
-      <li><a href="https://forms.gle/Nn5RAsdSVDKimAab6" target="_blank" rel="noopener" class="nav-cta">Apply Free</a></li>
+      <li><a href="https://forms.gle/Nn5RAsdSVDKimAab6" target="_blank" rel="noopener" class="nav-cta">Apply Now</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- ── MOBILE MENU ── -->
+  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <ul>
       <li><a href="#about" class="mob-link">About</a></li>
       <li><a href="#curriculum" class="mob-link">Curriculum</a></li>
       <li><a href="#testimonials" class="mob-link">Stories</a></li>
-      <li><a href="https://forms.gle/Nn5RAsdSVDKimAab6" target="_blank" rel="noopener" class="mob-link">Apply Free</a></li>
+      <li><a href="https://forms.gle/Nn5RAsdSVDKimAab6" target="_blank" rel="noopener" class="mob-link">Apply Now</a></li>
     </ul>
   </div>
 
-  <!-- ── HERO ── -->
+  <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-bg">
       <div class="hero-orb orb-1"></div>
       <div class="hero-orb orb-2"></div>
       <div class="hero-grid"></div>
     </div>
-
     <img src="assets/butterfiles.webp" class="butterfly butterfly-h1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-h2" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-h3" alt="" aria-hidden="true" />
@@ -176,7 +70,7 @@
             <span class="line-wrap"><span class="line">in Technology</span></span>
           </h1>
           <p class="hero-sub" id="heroSub">
-            A free, week-long immersive program for Grade 12 graduates — gain clarity, hands-on skills, and expert guidance across Programming, AI, Cybersecurity, Web & Mobile Development.
+            A free, week-long immersive program for Grade 12 graduates — gain clarity, hands-on skills, and expert guidance across Programming, AI, Cybersecurity, Web &amp; Mobile Development.
           </p>
           <div class="hero-actions" id="heroActions">
             <a href="https://forms.gle/Nn5RAsdSVDKimAab6" target="_blank" rel="noopener" class="btn-primary">Apply Now — It's Free</a>
@@ -199,17 +93,11 @@
             </div>
           </div>
         </div>
-
         <div class="hero-right" id="heroRight">
           <div class="hero-img-frame">
             <div class="hero-img-deco deco-ring"></div>
             <div class="hero-img-deco deco-dots"></div>
-            <img
-              src="assets/image_mac.webp"
-              alt="Students learning technology"
-              class="hero-img"
-              id="heroImg"
-            />
+            <img src="assets/image_mac.webp" alt="Students learning technology" class="hero-img" id="heroImg" />
             <div class="hero-img-badge">
               <span class="badge-icon">🎓</span>
               <div>
@@ -227,7 +115,7 @@
     </div>
   </section>
 
-  <!-- ── MARQUEE ── -->
+  <!-- MARQUEE -->
   <div class="marquee-strip">
     <div class="marquee-track">
       <span>Programming Basics</span><span class="sep">|</span>
@@ -249,7 +137,7 @@
     </div>
   </div>
 
-  <!-- ── ABOUT ── -->
+  <!-- ABOUT -->
   <section class="about section" id="about">
     <img src="assets/butterfiles.webp" class="butterfly butterfly-a1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-a2" alt="" aria-hidden="true" />
@@ -257,13 +145,11 @@
       <div class="about-grid">
         <div class="about-left reveal-left">
           <div class="section-label">About the Program</div>
-          <h2 class="section-title">
-            Shape Your Career,<br /><em>Explore Your Potential</em>
-          </h2>
+          <h2 class="section-title">Shape Your Career,<br /><em>Explore Your Potential</em></h2>
         </div>
         <div class="about-right reveal-right">
           <p class="about-body">
-            Career Pathways is conceived and conducted by <strong>Lord Buddha Education Foundation (LBEF)</strong>, Nepal's first IT college, bringing decades of expertise and industry-aligned guidance to your learning journey.
+            Career Pathways is conceived and conducted by <strong> <a href="https://lbef.org/" target="_blank" rel="noopener noreferrer">Lord Buddha Education Foundation (LBEF)</a> </strong>, Nepal's first IT college, bringing decades of expertise and industry-aligned guidance to your learning journey.
           </p>
           <p class="about-body">
             Designed specifically for result-awaiting Grade 12 graduates, this program offers structured exposure to technology careers, practical coding skills, and professional development — all at zero cost.
@@ -296,7 +182,125 @@
     </div>
   </section>
 
-  <!-- ── CURRICULUM ── -->
+  <!-- WHY JOIN -->
+  <section class="why-join section" id="why-join">
+    <img src="assets/butterfiles.webp" class="butterfly butterfly-w1" alt="" aria-hidden="true" />
+    <div class="container">
+      <div class="why-join-header">
+        <div class="section-label reveal-up">Reasons to Join</div>
+        <h2 class="section-title reveal-up">Why Join <em>Career Pathways?</em></h2>
+        <p class="section-sub reveal-up">Five compelling reasons why this program is the right next step for you.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal-up">
+          <div class="why-num">01</div>
+          <div class="why-icon">🗺️</div>
+          <h3>Structured Roadmap</h3>
+          <p>Each day is carefully crafted to cover key technology domains and career insights — giving you a clear direction from day one.</p>
+        </div>
+        <div class="why-card reveal-up">
+          <div class="why-num">02</div>
+          <div class="why-icon">🎓</div>
+          <h3>Expert Guidance</h3>
+          <p>Learn from educators and IT professionals with real-world experience who are dedicated to helping you succeed.</p>
+        </div>
+        <div class="why-card reveal-up">
+          <div class="why-num">03</div>
+          <div class="why-icon">💻</div>
+          <h3>Hands-on Learning</h3>
+          <p>Gain practical skills in programming, AI, cybersecurity, web, and mobile development through immersive, project-based sessions.</p>
+        </div>
+        <div class="why-card reveal-up">
+          <div class="why-num">04</div>
+          <div class="why-icon">🌐</div>
+          <h3>Holistic Skill Development</h3>
+          <p>Enhance technical knowledge alongside academic writing and career planning skills — preparing you fully for the professional world.</p>
+        </div>
+        <div class="why-card reveal-up">
+          <div class="why-num">05</div>
+          <div class="why-icon">🎫</div>
+          <h3>Free-of-Cost Participation</h3>
+          <p>Engage fully without financial barriers. A Certificate of Participation is awarded for 80% or higher attendance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO SHOULD PARTICIPATE -->
+  <section class="who-should section" id="who-should">
+    <img src="assets/butterfiles.webp" class="butterfly butterfly-ws1" alt="" aria-hidden="true" />
+    <div class="container">
+      <div class="who-inner">
+        <div class="who-left reveal-left">
+          <div class="section-label">Eligibility</div>
+          <h2 class="section-title">Who Should<br /><em>Participate?</em></h2>
+          <p class="who-body">This program is designed for students who are ready to take their first step into the world of technology.</p>
+        </div>
+        <div class="who-right">
+          <ul class="who-list">
+            <li class="reveal-up">
+              <div class="who-icon">◈</div>
+              <div>
+                <strong>Result-Awaiting Grade 12 Graduates</strong>
+                <p>Recent graduates exploring technology career options while waiting for their results.</p>
+              </div>
+            </li>
+            <li class="reveal-up">
+              <div class="who-icon">◈</div>
+              <div>
+                <strong>Curious About IT Skills</strong>
+                <p>Students curious about IT skills and real-world applications of technology in modern careers.</p>
+              </div>
+            </li>
+            <li class="reveal-up">
+              <div class="who-icon">◈</div>
+              <div>
+                <strong>Motivated Learners</strong>
+                <p>Individuals motivated to build foundational skills in programming, cybersecurity, and cloud computing.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM OVERVIEW -->
+  <section class="overview section" id="overview">
+    <img src="assets/butterfiles.webp" class="butterfly butterfly-ov1" alt="" aria-hidden="true" />
+    <img src="assets/butterfiles.webp" class="butterfly butterfly-ov2" alt="" aria-hidden="true" />
+    <div class="container">
+      <div class="overview-header">
+        <div class="section-label reveal-up">Program Overview</div>
+        <h2 class="section-title reveal-up">What You'll <em>Learn &amp; Achieve</em></h2>
+        <p class="section-sub reveal-up">By the end of this program, you will have gained far more than just technical knowledge.</p>
+      </div>
+      <div class="overview-grid">
+        <div class="overview-item reveal-up">
+          <div class="ov-icon">💼</div>
+          <p>Understand various meaningful careers in IT and pathways to pursue them.</p>
+        </div>
+        <div class="overview-item reveal-up">
+          <div class="ov-icon">⌨️</div>
+          <p>Acquire hands-on programming and AI basics you can start applying immediately.</p>
+        </div>
+        <div class="overview-item reveal-up">
+          <div class="ov-icon">🔐</div>
+          <p>Gain foundational knowledge of cybersecurity principles and best practices.</p>
+        </div>
+        <div class="overview-item reveal-up">
+          <div class="ov-icon">🌐</div>
+          <p>Learn the basics of web and mobile application development from industry experts.</p>
+        </div>
+        <div class="overview-item reveal-up">
+          <div class="ov-icon">✍️</div>
+          <p>Develop academic writing skills focused on IT-related reports, documentation, and technical communication.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM — TABLE VIEW -->
   <section class="curriculum section" id="curriculum">
     <img src="assets/butterfiles.webp" class="butterfly butterfly-c1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-c2" alt="" aria-hidden="true" />
@@ -306,107 +310,152 @@
         <h2 class="section-title reveal-up">Six Days. <em>Endless Possibilities.</em></h2>
         <p class="section-sub reveal-up">A meticulously designed week that takes you from career clarity to hands-on technology skills.</p>
       </div>
-      <div class="days-list">
 
-        <div class="day-card reveal-up" data-day="01">
-          <div class="day-number">Day 01</div>
-          <div class="day-content">
-            <div class="day-sessions">
-              <div class="day-session">
-                <span class="session-tag">Session I · 1 Hour</span>
-                <h3>Pursuing Meaningful Careers in IT</h3>
-                <p class="facilitator">Mr. Rajan Raj Pant — Head of Admissions, LBEF College</p>
-              </div>
-              <div class="day-session">
-                <span class="session-tag">Session II · 3 Hours</span>
-                <h3>Programming Basics for AI Applications</h3>
-                <p class="facilitator">Faculty Lecturer, LBEF College</p>
-              </div>
-            </div>
-          </div>
-          <div class="day-pill">Career + Code</div>
-        </div>
-
-        <div class="day-card reveal-up" data-day="02">
-          <div class="day-number">Day 02</div>
-          <div class="day-content">
-            <div class="day-sessions">
-              <div class="day-session">
-                <span class="session-tag">3 Hours</span>
-                <h3>Programming Basics for AI Applications</h3>
-                <p class="facilitator">Faculty Lecturer, LBEF College</p>
-              </div>
-            </div>
-          </div>
-          <div class="day-pill">AI + Code</div>
-        </div>
-
-        <div class="day-card reveal-up" data-day="03">
-          <div class="day-number">Day 03</div>
-          <div class="day-content">
-            <div class="day-sessions">
-              <div class="day-session">
-                <span class="session-tag">3 Hours</span>
-                <h3>Fundamentals of Cybersecurity</h3>
-                <p class="facilitator">Mr. Manish Deuja — Faculty Lecturer, LBEF College</p>
-              </div>
-            </div>
-          </div>
-          <div class="day-pill">Security</div>
-        </div>
-
-        <div class="day-card reveal-up" data-day="04">
-          <div class="day-number">Day 04</div>
-          <div class="day-content">
-            <div class="day-sessions">
-              <div class="day-session">
-                <span class="session-tag">3 Hours</span>
-                <h3>Web Development</h3>
-                <p class="facilitator">Mr. Bikul Raj Koirala — Deputy Program Coordinator, LBEF College</p>
-              </div>
-            </div>
-          </div>
-          <div class="day-pill">Web</div>
-        </div>
-
-        <div class="day-card reveal-up" data-day="05">
-          <div class="day-number">Day 05</div>
-          <div class="day-content">
-            <div class="day-sessions">
-              <div class="day-session">
-                <span class="session-tag">3 Hours</span>
-                <h3>Mobile App Development</h3>
-                <p class="facilitator">Mr. Shambhu Gautam — Faculty Lecturer, LBEF College</p>
-              </div>
-            </div>
-          </div>
-          <div class="day-pill">Mobile</div>
-        </div>
-
-        <div class="day-card reveal-up" data-day="06">
-          <div class="day-number">Day 06</div>
-          <div class="day-content">
-            <div class="day-sessions">
-              <div class="day-session">
-                <span class="session-tag">Session I · 3 Hours</span>
-                <h3>Cloud Engineering Basics</h3>
-                <p class="facilitator">Mr. Shree Paudel — Faculty Lecturer, LBEF College</p>
-              </div>
-              <div class="day-session">
-                <span class="session-tag">Session II · 1 Hour</span>
-                <h3>Basics of Academic Writing</h3>
-                <p class="facilitator">Dr. R.N. Thakur — Dean of Academics, LBEF College</p>
-              </div>
-            </div>
-          </div>
-          <div class="day-pill">Cloud + Writing</div>
-        </div>
-
+      <div class="curriculum-table-wrap reveal-up">
+        <table class="curriculum-table">
+          <thead>
+            <tr>
+              <th class="col-day">Day</th>
+              <th class="col-topic">Topic</th>
+              <th class="col-facilitator">Facilitator</th>
+              <th class="col-duration">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Day 1 -->
+            <tr class="table-row-group-start" data-day="01" data-pill="Career + Code">
+              <td class="day-cell" rowspan="2">
+                <div class="day-cell-inner">
+                  <span class="day-label">Day</span>
+                  <span class="day-num">01</span>
+                </div>
+              </td>
+              <td class="topic-cell">
+                <span class="session-badge">Session I</span>
+                <div class="topic-title">Pursuing Meaningful Careers in IT</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Mr. Rajan Raj Pant</div>
+                <div class="fac-role">Head of Admissions, LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">1 Hour</span></td>
+            </tr>
+            <tr class="table-row-sub" data-day="01">
+              <td class="topic-cell">
+                <span class="session-badge">Session II</span>
+                <div class="topic-title">Programming Basics for AI Applications</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Faculty Lecturer</div>
+                <div class="fac-role">LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">3 Hours</span></td>
+            </tr>
+            <!-- Day 2 -->
+            <tr class="table-row-group-start" data-day="02" data-pill="AI + Code">
+              <td class="day-cell">
+                <div class="day-cell-inner">
+                  <span class="day-label">Day</span>
+                  <span class="day-num">02</span>
+                </div>
+              </td>
+              <td class="topic-cell">
+                <div class="topic-title">Programming Basics for AI Applications</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Faculty Lecturer</div>
+                <div class="fac-role">LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">3 Hours</span></td>
+            </tr>
+            <!-- Day 3 -->
+            <tr class="table-row-group-start" data-day="03" data-pill="Security">
+              <td class="day-cell">
+                <div class="day-cell-inner">
+                  <span class="day-label">Day</span>
+                  <span class="day-num">03</span>
+                </div>
+              </td>
+              <td class="topic-cell">
+                <div class="topic-title">Fundamentals of Cybersecurity</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Mr. Manish Deuja</div>
+                <div class="fac-role">Faculty Lecturer, LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">3 Hours</span></td>
+            </tr>
+            <!-- Day 4 -->
+            <tr class="table-row-group-start" data-day="04" data-pill="Web">
+              <td class="day-cell">
+                <div class="day-cell-inner">
+                  <span class="day-label">Day</span>
+                  <span class="day-num">04</span>
+                </div>
+              </td>
+              <td class="topic-cell">
+                <div class="topic-title">Web Development</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Mr. Bikul Raj Koirala</div>
+                <div class="fac-role">Deputy Program Coordinator, LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">3 Hours</span></td>
+            </tr>
+            <!-- Day 5 -->
+            <tr class="table-row-group-start" data-day="05" data-pill="Mobile">
+              <td class="day-cell">
+                <div class="day-cell-inner">
+                  <span class="day-label">Day</span>
+                  <span class="day-num">05</span>
+                </div>
+              </td>
+              <td class="topic-cell">
+                <div class="topic-title">Mobile App Development</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Mr. Shambhu Gautam</div>
+                <div class="fac-role">Faculty Lecturer, LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">3 Hours</span></td>
+            </tr>
+            <!-- Day 6 -->
+            <tr class="table-row-group-start" data-day="06" data-pill="Cloud + Writing">
+              <td class="day-cell" rowspan="2">
+                <div class="day-cell-inner">
+                  <span class="day-label">Day</span>
+                  <span class="day-num">06</span>
+                </div>
+              </td>
+              <td class="topic-cell">
+                <span class="session-badge">Session I</span>
+                <div class="topic-title">Cloud Engineering Basics</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Mr. Shree Paudel</div>
+                <div class="fac-role">Faculty Lecturer, LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">3 Hours</span></td>
+            </tr>
+            <tr class="table-row-sub" data-day="06">
+              <td class="topic-cell">
+                <span class="session-badge">Session II</span>
+                <div class="topic-title">Basics of Academic Writing</div>
+              </td>
+              <td class="facilitator-cell">
+                <div class="fac-name">Dr. R.N. Thakur</div>
+                <div class="fac-role">Dean of Academics, LBEF College</div>
+              </td>
+              <td class="duration-cell"><span class="dur-badge">1 Hour</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
     </div>
   </section>
 
-  <!-- ── TAKEAWAYS ── -->
+  <!-- TAKEAWAYS -->
   <section class="takeaways section">
     <img src="assets/butterfiles.webp" class="butterfly butterfly-t1" alt="" aria-hidden="true" />
     <div class="container">
@@ -428,7 +477,7 @@
     </div>
   </section>
 
-  <!-- ── TESTIMONIALS ── -->
+  <!-- TESTIMONIALS -->
   <section class="testimonials section" id="testimonials">
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ts1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ts2" alt="" aria-hidden="true" />
@@ -507,8 +556,8 @@
     </div>
   </section>
 
-  <!-- ── TESTIMONIAL DIALOG ── -->
-  <div class="testi-dialog-overlay" id="testiDialogOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+  <!-- TESTIMONIAL DIALOG -->
+  <div class="testi-dialog-overlay" id="testiDialogOverlay" role="dialog" aria-modal="true">
     <div class="testi-dialog" id="testiDialog">
       <button class="testi-dialog-close" id="testiDialogClose" aria-label="Close">✕</button>
       <div class="testi-dialog-label">Career Pathway Testimonial</div>
@@ -524,13 +573,47 @@
     </div>
   </div>
 
-  <!-- ── LOCATION ── -->
+  <!-- PROGRAM HIGHLIGHTS AT A GLANCE -->
+  <section class="highlights section" id="highlights">
+    <img src="assets/butterfiles.webp" class="butterfly butterfly-hl1" alt="" aria-hidden="true" />
+    <div class="container">
+      <div class="highlights-header">
+        <div class="section-label reveal-up">At a Glance</div>
+        <h2 class="section-title reveal-up">Program Highlights</h2>
+        <p class="section-sub reveal-up">Everything you need to know about what makes Career Pathways worth your time.</p>
+      </div>
+      <div class="highlights-grid">
+        <div class="highlight-glance-card reveal-up">
+          <div class="hlg-icon">🎫</div>
+          <h3>Free-of-Cost Participation</h3>
+          <p>Zero financial barriers. The entire program — sessions, materials, and certificate — is completely free of charge.</p>
+        </div>
+        <div class="highlight-glance-card reveal-up">
+          <div class="hlg-icon">👩‍🏫</div>
+          <h3>Expert-Led Sessions</h3>
+          <p>Each session is led by experienced faculty and IT professionals across multiple technology domains.</p>
+        </div>
+        <div class="highlight-glance-card reveal-up">
+          <div class="hlg-icon">🛠️</div>
+          <h3>Hands-On Learning Experience</h3>
+          <p>Move beyond theory with practical exercises, coding sessions, and real-world problem-solving activities.</p>
+        </div>
+        <div class="highlight-glance-card reveal-up">
+          <div class="hlg-icon">📜</div>
+          <h3>Certificate of Participation</h3>
+          <p>Earn a recognized Certificate of Participation upon completing the program with 80% or higher attendance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
   <section class="location section">
     <div class="container">
       <div class="location-card reveal-up">
         <div class="location-left">
-          <div class="section-label">Location & Schedule</div>
-          <h2>Where & When</h2>
+          <div class="section-label">Location &amp; Schedule</div>
+          <h2>Where &amp; When</h2>
           <div class="loc-detail">
             <div class="loc-icon">📍</div>
             <div>
@@ -542,7 +625,7 @@
             <div class="loc-icon">🕐</div>
             <div>
               <strong>Sessions start at 11:00 AM</strong>
-              <p>Exact dates communicated post-enrollment</p>
+              <p>Individual participants will be informed personally once the schedule is finalized</p>
             </div>
           </div>
           <div class="loc-detail">
@@ -552,27 +635,42 @@
               <p>For participants with 80%+ attendance</p>
             </div>
           </div>
+          <div class="loc-schedule-note">
+            <p>All Career Pathways sessions will be conducted at <strong>LBEF Premises, Maitidevi</strong>. Classes are scheduled to start at <strong>11:00 AM</strong>.</p>
+            <p>Individual participants will be informed personally as soon as the schedule is finalized. This ensures a smooth start and a focused, engaging learning experience for everyone.</p>
+          </div>
         </div>
         <div class="location-right">
-          <!-- EMBEDDED GOOGLE MAP -->
           <div class="map-embed-wrap">
+            <!-- Invisible clickable overlay — opens LBEF directly in Google Maps -->
+            <a
+              href="https://www.google.com/maps/place/Lord+Buddha+Education+Foundation+(LBEF)/@27.7094799,85.3313636,17z/data=!3m1!4b1!4m6!3m5!1s0x39eb191a5f9e7305:0x5b6d892cf3b9e72f!8m2!3d27.7094799!4d85.3313636!16s%2Fg%2F11c1p8l8l8"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="map-click-overlay"
+              aria-label="Open LBEF location in Google Maps"
+            ></a>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.2!2d85.3312!3d27.7100!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb191a5f9e7305%3A0x5b6d892cf3b9e72f!2sLord%20Buddha%20Education%20Foundation%20(LBEF)!5e0!3m2!1sen!2snp!4v1700000000000!5m2!1sen!2snp"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.2942610322!2d85.3287887!3d27.7094799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb191a5f9e7305%3A0x5b6d892cf3b9e72f!2sLord%20Buddha%20Education%20Foundation%20(LBEF)!5e0!3m2!1sen!2snp!4v1713800000000!5m2!1sen!2snp"
               width="100%"
               height="100%"
-              style="border:0; border-radius: 12px;"
+              style="border:0; display:block;"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              title="LBEF Location – Maitidevi, Kathmandu">
-            </iframe>
+              title="LBEF Location — Maitidevi, Kathmandu"
+            ></iframe>
+          </div>
+          <div class="map-label-below">
+            <span class="map-pin-dot">📍</span>
+            <span>Lord Buddha Education Foundation — Maitidevi, Kathmandu</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── APPLY ── -->
+  <!-- APPLY -->
   <section class="apply section" id="apply">
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ap1" alt="" aria-hidden="true" />
     <img src="assets/butterfiles.webp" class="butterfly butterfly-ap2" alt="" aria-hidden="true" />
@@ -599,7 +697,7 @@
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
@@ -609,90 +707,12 @@
                  onerror="this.style.display='none';" />
           </a>
         </div>
-        <p class="footer-copy">© 2025 Lord Buddha Education Foundation. All rights reserved.</p>
+        <p class="footer-copy">© 2026 Lord Buddha Education Foundation. All rights reserved.</p>
         <p class="footer-address">Maitidevi, Kathmandu, Nepal</p>
       </div>
     </div>
   </footer>
 
   <script src="index.js"></script>
-  <script>
-    /* ── TESTIMONIAL DIALOG LOGIC ── */
-    (function() {
-      const overlay   = document.getElementById('testiDialogOverlay');
-      const closeBtn  = document.getElementById('testiDialogClose');
-      const bodyEl    = document.getElementById('testiDialogBody');
-      const nameEl    = document.getElementById('testiDialogName');
-      const roleEl    = document.getElementById('testiDialogRole');
-      const avatarWrap = document.getElementById('testiDialogAvatarWrap');
-
-      function openDialog(card) {
-        const name     = card.dataset.name;
-        const role     = card.dataset.role;
-        const avatar   = card.dataset.avatar;
-        const initials = card.dataset.initials;
-        const full     = card.dataset.full;
-
-        // Build paragraphs from || delimiter
-        const paragraphs = full.split('||').map(p => p.trim()).filter(Boolean);
-        bodyEl.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
-
-        nameEl.textContent = name;
-        roleEl.textContent = role;
-
-        // Avatar
-        avatarWrap.innerHTML = `
-          <img src="${avatar}" alt="${name}"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-          <div class="testi-dialog-avatar-fallback" style="display:none;">${initials}</div>
-        `;
-
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeDialog() {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-
-      // Attach click to each testi-card
-      document.querySelectorAll('.testi-card').forEach(card => {
-        card.addEventListener('click', () => openDialog(card));
-        card.setAttribute('role', 'button');
-        card.setAttribute('tabindex', '0');
-        card.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDialog(card); }
-        });
-      });
-
-      closeBtn.addEventListener('click', closeDialog);
-
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeDialog();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeDialog();
-      });
-    })();
-  </script>
-
-  <style>
-    /* ── MAP EMBED ── */
-    .map-embed-wrap {
-      width: 100%;
-      height: 300px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1.5px solid var(--border-warm);
-      box-shadow: 0 4px 24px rgba(3,92,172,0.10);
-    }
-    .map-embed-wrap iframe {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-  </style>
 </body>
 </html>
