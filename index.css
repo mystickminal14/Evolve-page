@@ -252,7 +252,7 @@ ul { list-style: none; }
 
 .hero-eyebrow { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 32px; opacity: 0; }
 @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
-.hero-headline { font-family: var(--font-serif); font-size: clamp(54px, 8vw, 100px); font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 32px; }
+.hero-headline { font-family: var(--font-serif); font-size: clamp(54px, 8vw, 100px); font-weight: 300; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 32px; }
 .line-wrap { display: block; overflow: hidden; }
 .line { display: block; transform: translateY(110%); }
 .italic-serif { font-style: italic; color: var(--blue); }
